@@ -9,7 +9,7 @@ FATORIAL:
 	sw t1,8(sp) # para ser o fator de controle
 	li t1,1 
 	fmv.s.x fa1, a0
-	addi t0,a0,-1
+	addi t0,
 	
 LOOPFATORIAL:
 	ble t0,t1,ENDFATORIAL

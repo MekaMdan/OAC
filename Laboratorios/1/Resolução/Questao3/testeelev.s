@@ -1,10 +1,14 @@
+
+.text
 MAIN: 
-	li a0, 100
-	jal FATORIAL
+	li a0,67
 	
-	mv a0,a1
+	jal RADIANO
+	jal COS
 	
-	li a7,1
+	fmv.s fa0,fa1
+	
+	li a7,2
 	ecall
 	
 	li a7,10
@@ -13,4 +17,5 @@ MAIN:
 
 
 
-.include"fatorial.s"
+.include"radi.s"
+.include "cosseno.s"

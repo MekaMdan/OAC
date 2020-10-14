@@ -1,19 +1,25 @@
 N = lados
 # n = ponto atual
 
-angulo = angulo_inicial
-incremento_angulo =  360/N
 
-para N
+AQUI
+angulo = angulo_inicial
+incremento_angulo =  2PI/N
+
+#  para N
 	x= x_centro + raio + cos(angulo)
 	y = y_centro + raio + sen(angulo)
 	angulo = angulo + incremento_ang
 
+## ATE AQU
+
+# essa eh a certa
+sin x = x − x3/3! + x5/5! − x7/7! 
 
 
 
 FAZER:
-	cos/seno (com tratamento de overflow)
-	fatorial (com tratamento de overflow)
-	exponencial (com tratamento de overflow)
+	cos/seno (com tratamento de overflow) 	   - OK!!!!!!!!!
+	exponencial (com tratamento de overflow)   - OK!!!!
+	Grau -> rad 				   - OK!!!!!!
 	
