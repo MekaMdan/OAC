@@ -1,0 +1,19 @@
+N = lados
+# n = ponto atual
+
+angulo = angulo_inicial
+incremento_angulo =  360/N
+
+para N
+	x= x_centro + raio + cos(angulo)
+	y = y_centro + raio + sen(angulo)
+	angulo = angulo + incremento_ang
+
+
+
+
+FAZER:
+	cos/seno (com tratamento de overflow)
+	fatorial (com tratamento de overflow)
+	exponencial (com tratamento de overflow)
+	
