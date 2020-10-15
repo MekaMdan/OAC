@@ -1,7 +1,7 @@
 
 .text
 MAIN: 
-	li a0,67
+	li a0,60
 	
 	jal RADIANO
 	jal COS

@@ -33,8 +33,6 @@ SENO:
 	la s1 facts
 	
 LOOPSENO:
-	beqz s0, FIMSENO
-	
 	fmul.s fs2, fs2, fs1 		# angulo^i * angulo*2
 	
 	flw 		fs3, 0(s1)				# carrega o fatorial (facts[i])
@@ -44,8 +42,7 @@ LOOPSENO:
 	
 	addi s0, s0, -1
 	addi s1, s1, 4
-	j LOOPSENO
-FIMSENO:
+	bnez s0, LOOPSENO
 
 	fmv.s fa1, fs0
 
