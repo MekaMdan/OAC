@@ -26,7 +26,6 @@ MAIN:
 	ecall
 	
 	jal LER #retorna valores a0(raio), a1(angulo) e a2(lados)
-	
 
 	jal VERTICES
 	

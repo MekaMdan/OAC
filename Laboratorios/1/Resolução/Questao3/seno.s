@@ -26,6 +26,8 @@ SENO:
 	
 	li s0 10 							# contador (i)
 	
+	jal LIMITA
+	
 	fmv.s	fs0, fa0					# fs0 = angulo	(soma)
 	fmv.s	fs2, fa0					# fs2 = angulo (produto)
 	fmul.s	fs1, fa0, fa0 		# fs1 = angulo^2
@@ -55,3 +57,5 @@ LOOPSENO:
 	flw fs3,0(sp)
 	addi sp,sp,28
 	ret
+
+.include "limita.s"
