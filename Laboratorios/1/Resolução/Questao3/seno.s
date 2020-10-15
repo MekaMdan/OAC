@@ -1,62 +1,60 @@
-# 3! = 6 | 5! = 120 | 
 .data
-sete: .float 5040
-cinco: .float 120
-tres: .float 6
-nove: .float 362880
+facts: .float 	-6.0 										# 3!
+							 120.0 									# 5!
+							-5040.0 								# 7!
+							 362880.0 							# 9!
+							-39916800.0							# 11!
+							 6227020800.0						# 13!
+							-1307674368000.0				# 15!
+							 355687428096000.0			# 17!
+							-121645100408832000.0		# 19!
+							 51090942171709440000.0	# 21!
 
 .text
 # SENO(fa0) -> fa1
 # fa0 -> angulo (em radiano)
 # fa1 -> resultado do seno do angulo a0
 SENO:
-	addi sp,sp,-12
-	sw ra,0(sp)
-	sw t0,4(sp)
-	sw t3,8(sp)
+	addi sp,sp,-28
+	sw ra,24(sp)
+	sw s0,20(sp)
+	sw s1,16(sp)
+	fsw fs0,12(sp)
+	fsw fs1,8(sp)
+	fsw fs2,4(sp)
+	fsw fs3,0(sp)
 	
-	#fa0 -> ang; a0-> exp
-	li a0,3
-	jal EXPONENCIAL
+	li s0 10 							# contador (i)
 	
-	flw ft1,tres t3
-	fdiv.s ft0, fa1, ft1 # x^3/3!
+	fmv.s	fs0, fa0					# fs0 = angulo	(soma)
+	fmv.s	fs2, fa0					# fs2 = angulo (produto)
+	fmul.s	fs1, fa0, fa0 		# fs1 = angulo^2
 	
-	fsub.s ft2, fa0, ft0 # x - (x^3)/3!
+	la s1 facts
 	
-	#fa0 -> ang; a0-> exp
-	li a0,5
-	jal EXPONENCIAL
+LOOPSENO:
+	beqz s0, FIMSENO
 	
-	flw ft1,cinco t3
-	fdiv.s ft0, fa1, ft1 # x^5/5!
+	fmul.s fs2, fs2, fs1 		# angulo^i * angulo*2
 	
-	fadd.s ft2,ft2,ft0 #  x - ((x^3)/3!) + ((x^5)/5!)
+	flw 		fs3, 0(s1)				# carrega o fatorial (facts[i])
+	fdiv.s fs3, fs2, fs3		# x^(2i-1)/(facts[i])
 	
-	#fa0 -> ang; a0-> exp
-	li a0,7
-	jal EXPONENCIAL
+	fadd.s	fs0, fs0, fs3		# soma final
 	
-	flw ft1,sete t3
-	fdiv.s ft0, fa1, ft1 # x^7/7!  
-	fsub.s ft2,ft2,ft0   #  x - ((x^3)/3!) + ((x^5)/5!) - (x^7/7!) 
-	
-	#fa0 -> ang; a0-> exp
-	li a0,9
-	jal EXPONENCIAL
-	
-	flw ft1,nove t3
-	fdiv.s ft0, fa1, ft1 # x^9/9!
-	
-	fadd.s ft2,ft2,ft0 #  x - ((x^3)/3!) + ((x^5)/5!) - (x^7/7!) + - (x^9/9!) 
-	
-	fmv.s fa1,ft2
-	
-	lw ra,0(sp)
-	lw t0,4(sp)
-	lw t3,8(sp)
-	addi sp,sp,12
+	addi s0, s0, -1
+	addi s1, s1, 4
+	j LOOPSENO
+FIMSENO:
+
+	fmv.s fa1, fs0
+
+	lw ra,24(sp)
+	lw s0,20(sp)
+	lw s1,16(sp)
+	flw fs0,12(sp)
+	flw fs1,8(sp)
+	flw fs2,4(sp)
+	flw fs3,0(sp)
+	addi sp,sp,28
 	ret
-	
-	
-.include "exp.s"
