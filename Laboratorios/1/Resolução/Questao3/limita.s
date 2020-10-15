@@ -1,5 +1,5 @@
 .data
-PI_:	.float		3.1415926535972
+PI_:	.float		6.28318530718
 
 .text
 # limita(fa0: rad): fa0: rad
@@ -14,13 +14,14 @@ LIMITA:
 	fsw fs2, 0(sp)
 	
 	flw fs0, PI_, t3 			# fs0 = ?
-	li s0, -2
+	li s0, -1
 	fcvt.s.w fs2, s0
 	
-	flt.s t3, fa0, fs0
-	fcvt.s.w fs1, t3
-	fmul.s	fs1,	fs1, fs2
-	fmadd.s fa0, fs1, fs0, fa0
+	fdiv.s fs1, fa0, fs0		# fs1 = rad / pi
+	fcvt.w.s	t3, fs1				# 
+	fcvt.s.w fs1, t3				# arredonda fs1
+	fmul.s	fs1,	fs1, fs0
+	fmadd.s fa0, fs1, fs2, fa0
 	
 	lw ra, 16(sp)
 	lw s0, 12(sp)

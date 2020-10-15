@@ -2,7 +2,7 @@
 .text
 MAIN: 
 	li s1, 0
-	li s0, 720
+	li s0, 1080
 
 LOOPTESTE:
 	mv a0, s1
