@@ -24,72 +24,38 @@ MAIN:
 	li a2,	160
 	li a3,240
 	ecall
-	#jal LER #retorna valores a0(raio), a1(angulo) e a2(lados)
 	
-
-	li s9	360	# n maximo angulo
-	li s10	15 	# lados maximo
-	li s7 	0	# contador (angulo)
-
-ANGULO:
-	li s11 	3	# contador n lados
-LADOS:
-	li a0 100
-	mv a1 s7
-	mv a2 s11
-		
-	csrr s2,3073   # le o time atual
+	# jal LER #retorna valores a0(raio), a1(angulo) e a2(lados)
+	li a7, 42
+	li	 a1 110
+	ecall
+	addi s0 a0 10
+	
+	li	 a1 360
+	ecall
+	addi s1 a0 0
+	
+	li	 a1 12
+	ecall
+	addi s2 a0 3
+	
+	mv a0 s0
+	mv a1 s1
+	mv a2 s2
 	
 	jal VERTICES
 	mv a0, a3 	
 	jal DESENHA
 	
-	csrr t0,3073   # le o time atual
-	sub s0,t0,s2   # calcula o tempos
+	li a7 32
+	li a0 1000
+	ecall
 	
-	jal SHOWINFO
-	
-	addi s11 s11 1
-	blt s11 s10 LADOS
-	addi s7 s7 15
-	blt s7 s9 ANGULO
+	jal MAIN
+
 	
 	#Final
 	li a7,10
-	ecall
-
-SHOWINFO:
-# printa o raio
-	li a7 1
-	li a0 100
-	ecall
-#	printa espaco
-	li a7 11
-	li a0 32
-	ecall
-# printa o angulo
-	li a7 1
-	mv a0 s7
-	ecall
-#	printa espaco
-	li a7 11
-	li a0 32
-	ecall
-# printa o n lados
-	li a7 1
-	mv a0 s11
-	ecall
-#	printa espaco
-	li a7 11
-	li a0 32
-	ecall
-# printa o time
-	li a7 1
-	mv a0 s0
-	ecall
-# printa o newline
-	li a7 11
-	li a0 10
 	ecall
 	
 	ret

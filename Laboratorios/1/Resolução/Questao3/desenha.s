@@ -22,7 +22,7 @@ DESENHA:
 	mv s3, s0
 
 	
-	li a4,0xf0
+	li a4,0xff
  	li a5,0
 	li a7,47
 LOOPDESENHA:
