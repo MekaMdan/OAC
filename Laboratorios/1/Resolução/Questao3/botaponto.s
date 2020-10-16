@@ -9,8 +9,9 @@ DOISPI: .float 6.2831853
 # a0 -> raio; a1-> angulo; a2-> lados
 # a3 -> endereco do vetor
 VERTICES:
-	addi sp,sp,-4
-	sw ra,0(sp)
+	addi sp,sp,-8
+	sw ra,4(sp)
+	sw s2,0(sp)
 	
 	mv t0,a2   # t0 = lados 	
 	li t1, 0	
@@ -66,9 +67,10 @@ LOOPVERTICE:
 	
 	
 
-FIM:		
-	lw ra,0(sp)
-	addi sp,sp,4
+FIM:
+	lw s2,0(sp)
+	lw ra,4(sp)
+	addi sp,sp,8
 	ret 
 	
 .include "radi.s"

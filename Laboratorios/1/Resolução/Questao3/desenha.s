@@ -6,8 +6,12 @@
 # V[2i-1], 0 < i < n -> coordenada y de um vertice
 # a0: *V
 DESENHA:
-	addi sp,sp,-4
-	sw ra,(sp)
+	addi sp,sp,-20
+	sw ra,16(sp)
+	sw s0,12(sp)
+	sw s1,8(sp)
+	sw s2,4(sp)
+	sw s3,0(sp)
 	
 	mv s0, a0
 	
@@ -18,7 +22,7 @@ DESENHA:
 	mv s3, s0
 
 	
-	li a4,0xff
+	li a4,0xf0
  	li a5,0
 	li a7,47
 LOOPDESENHA:
@@ -38,9 +42,12 @@ LOOPDESENHA:
 	
 	bnez s2, LOOPDESENHA
 
-
-	sw ra,(sp)
-	addi sp,sp,4
+	lw ra,16(sp)
+	lw s0,12(sp)
+	lw s1,8(sp)
+	lw s2,4(sp)
+	lw s3,0(sp)
+	addi sp,sp,20
 	ret
 	
 
